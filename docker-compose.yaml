@@ -7,9 +7,9 @@ services:
       - RUST_LOG=garage=debug
       - GARAGE_RPC_SECRET=${GARAGE_RPC_SECRET}
     ports:
-      - 3900:3900
-      - 3901:3901
-      - 3902:3902
+      - ${GARAGE_PORT_3900}:3900
+      - ${GARAGE_PORT_3901}:3901
+      - ${GARAGE_PORT_3902}:3902
     volumes:
       - ./create_garage_config.sh:/usr/local/bin/create_garage_config.sh
       - garage-meta:/var/lib/garage/meta:rw

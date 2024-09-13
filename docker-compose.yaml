@@ -1,0 +1,27 @@
+version: "3"
+services:
+  garage:
+    container_name: ${GARAGE_CONTAINER_NAME}
+    image: dxflrs/garage:v1.0.0
+    environment:
+      - RUST_LOG=garage=debug
+      - GARAGE_RPC_SECRET=${GARAGE_RPC_SECRET}
+    ports:
+      - 3900:3900
+      - 3901:3901
+      - 3902:3902
+    volumes:
+      - ./create_garage_config.sh:/usr/local/bin/create_garage_config.sh
+      - garage-meta:/var/lib/garage/meta:rw
+      - garage-data:/var/lib/garage/data:rw
+    entrypoint:
+      [
+        "/bin/sh",
+        "-c",
+        "/usr/local/bin/create_garage_config.sh && /garage",
+        "server",
+      ]
+
+volumes:
+  garage-data:
+  garage-meta:
